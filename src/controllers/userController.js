@@ -99,9 +99,9 @@ const logout =async(req,res)=>{
         })
         await req.user.save()
         res.send("You have been successfully logged out !!!")
-     }catch(error){
+    }catch(error){
         res.status(500).send("Error Occured !!! The error is :",error)
-     }
+    }
 }
 
 module.exports={

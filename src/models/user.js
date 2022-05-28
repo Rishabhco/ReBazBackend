@@ -32,11 +32,6 @@ const userSchema = new mongoose.Schema({
             }
         },
     },
-    contact: {
-        type: Number,
-        minLength: 10,
-        maxLength: 10,
-    },
     password: {
         type: String,
         required: true,
@@ -51,8 +46,8 @@ const userSchema = new mongoose.Schema({
     }, ],
 });
 
-userSchema.virtual("jobs", {
-    ref: "Job",
+userSchema.virtual("items", {
+    ref: "item",
     localField: "_id",
     foreignField: "postedBy",
 });

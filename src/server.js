@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 const cors=require("cors");
 const db=require("./db/connection");
 const userRouter = require("./routers/user");
+const itemRouter = require("./routers/item");
 
 require("dotenv").config();
 
@@ -28,6 +29,7 @@ app.use(express.json());
 
 
 app.use("/user", userRouter);
+app.use("/items", itemRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
