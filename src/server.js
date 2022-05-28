@@ -4,7 +4,8 @@ const cors=require("cors");
 const db=require("./db/connection");
 const userRouter = require("./routers/user");
 const itemRouter = require("./routers/item");
-const res = require("express/lib/response");
+const homeRouter = require("./routers/home");
+
 
 require("dotenv").config();
 
@@ -28,9 +29,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cors(corsOptions))
 app.use(express.json());
 
-app.use("/", ()=>{
-  res.status(200).send("Welcome to the ReBazz Backend API");
-});
+app.use("/",homeRouter);
 
 app.use("/user", userRouter);
 app.use("/items", itemRouter);
