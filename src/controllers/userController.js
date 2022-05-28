@@ -15,7 +15,10 @@ const createUser=async(req,res)=>{
             data:user
         })
      }catch(error){
-        res.status(400).send(error)
+        res.status(400).send({
+            message:"Error has occured",
+            error
+        })
     }
 }
 
