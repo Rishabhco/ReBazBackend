@@ -5,7 +5,7 @@ const router=new express.Router()
 
 router.get('/',sellerController.home);
 router.post('/signup',sellerController.createSeller);
-router.get('/readUser',sellAuth,sellerController.readSeller);
+router.get('/read',sellAuth,sellerController.readSeller);
 router.patch('/updateUser/:id',sellAuth,sellerController.updateSeller);
 router.post('/login',sellerController.login);
 router.post('/logout',sellAuth,sellerController.logout);

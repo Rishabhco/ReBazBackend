@@ -7,7 +7,7 @@ const auth=async(req,res,next)=>{
         const decoded=jwt.verify(token,'code')
         const seller=await Seller.findOne({_id:decoded._id,'tokens.token':token})
 
-        if(!user){
+        if(!seller){
             throw new Error()
         }
         req.token=token
