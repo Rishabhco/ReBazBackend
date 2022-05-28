@@ -46,6 +46,10 @@ const itemSchema=new mongoose.Schema({
         contact:{
             type:Number,
             required:true,
+        },
+        accAddrs:{
+            type:String,
+            required:true,
         }
     },  
     postedBy:{
