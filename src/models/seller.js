@@ -3,7 +3,7 @@ const validator = require("validator");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
-const userSchema = new mongoose.Schema({
+const sellerSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -46,39 +46,45 @@ const userSchema = new mongoose.Schema({
     }, ],
 });
 
-userSchema.methods.generateAuthToken = async function () {
-    const user = this;
+sellerSchema.virtual("items", {
+    ref: "item",
+    localField: "_id",
+    foreignField: "postedBy",
+});
+
+sellerSchema.methods.generateAuthToken = async function () {
+    const seller = this;
     const token = jwt.sign({
-        _id: user._id.toString()
-    }, "mike");
-    user.tokens = user.tokens.concat({
+        _id: seller._id.toString()
+    }, "code");
+    seller.tokens = seller.tokens.concat({
         token
     });
-    await user.save();
+    await seller.save();
     return token;
 };
 
-userSchema.statics.findByCredentials = async (username, password) => {
-    const user = await User.findOne({
+sellerSchema.statics.findByCredentials = async (username, password) => {
+    const seller = await Seller.findOne({
         username
     });
-    if (!user) {
+    if (!seller) {
         throw new Error("Invalid Username!");
     }
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(password, seller.password);
     if (!isMatch) {
         throw new Error("Invalid Password!");
     }
-    return user;
+    return seller;
 };
 
-userSchema.pre("save", async function (next) {
-    const user = this;
-    if (user.isModified("password")) {
-        user.password = await bcrypt.hash(user.password, 8);
+sellerSchema.pre("save", async function (next) {
+    const seller = this;
+    if (seller.isModified("password")) {
+        seller.password = await bcrypt.hash(seller.password, 8);
     }
     next();
 });
 
-const User = mongoose.model("user", userSchema);
-module.exports = User;
+const Seller = mongoose.model("seller", sellerSchema);
+module.exports = Seller;

@@ -55,7 +55,7 @@ const itemSchema=new mongoose.Schema({
     postedBy:{
         type:mongoose.SchemaTypes.ObjectId,
         required:true,
-        ref:'user'
+        ref:'seller'
     }
 })
 

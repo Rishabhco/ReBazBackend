@@ -5,6 +5,7 @@ const db=require("./db/connection");
 const userRouter = require("./routers/user");
 const itemRouter = require("./routers/item");
 const homeRouter = require("./routers/home");
+const sellerRouter = require("./routers/seller");
 
 
 require("dotenv").config();
@@ -32,6 +33,7 @@ app.use(express.json());
 app.use("/",homeRouter);
 
 app.use("/user", userRouter);
+app.use("/seller", sellerRouter);
 app.use("/items", itemRouter);
 
 app.listen(port, () => {
