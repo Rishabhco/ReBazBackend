@@ -1,29 +1,14 @@
-const {Sequelize,DataTypes} = require("sequelize");
-const sequelize = new Sequelize(process.env.PG_URL);
+require('dotenv').config();
+const mongoose=require('mongoose')
 
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log("connected successfully");
-  })
-  .catch((err) => {
-    console.log("unable to connect to the database:", err);
-  });
+const db=process.env.URI;
 
-const db={};
-db.Sequelize=Sequelize;
-db.sequelize=sequelize;
-db.users=require("../models/user")(sequelize, DataTypes);
-
-sequelize
-  .sync({ force: true })                          
-  .then(() => {
-    console.log("Database & tables created!");
-  })
-  .catch((err) => {
-    console.log("error creating database:", err);
-  });
-
-                                                        // force:true will be helpful in developing stage
-                                                        // force:false will be helpful in production 
-module.exports = db;
+mongoose.connect(db,{
+    useNewUrlParser:true,
+    useUnifiedTopology: true,
+}).then(()=>{
+    console.log("Database is connected !!!");
+}).catch((err)=>{
+    console.log(err);
+    console.log("Connection has not been extablished with database !!!");
+})
