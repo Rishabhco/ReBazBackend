@@ -28,7 +28,9 @@ Deployment made on Heroku
 - Mongo DB
 - Figma
 - Tailwind
-
+- Ethereum
+- Polygon
+- Truffle Suite
 
 ## 💪🏻 Features
 - Fast Delivery
